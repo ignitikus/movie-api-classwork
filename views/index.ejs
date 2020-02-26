@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Movies</h1>
+    <form action="/getmovie" method='get'>
+      <label for="movie">Movie:</label><br>
+      <input type="text" name="movie" id="movie"><br>
+      <button type="submit">Find movie</button>
+    </form>
+    <a href="/addmovie">Add a movie to database</a><br>
+    <hr>
+    <% movies.forEach(({title, rating, synopsis, release_year, genre, director, box_office, poster}) => {%>
+      <img src=<%= poster %> alt="" style="max-width:200px">
+      <h2><% title.split(' ').forEach(movie => { %>
+          <%= movie.slice(0,1).toUpperCase()+ movie.slice(1) %> 
+        <% }) %> %> </h2>
+      <p><%= rating %> </p>
+      <p><%= synopsis %> </p>
+      <p><%= release_year %> </p>
+      <p><%= genre.join(', ') %> </p>
+      <p><%= director %> </p>
+      <p><%= box_office %> </p>
+      <hr /> 
+    <%})%> 
+  </body>
+</html>
