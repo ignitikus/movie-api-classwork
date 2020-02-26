@@ -71,7 +71,11 @@ module.exports ={
             movie.rating = req.body.rating ? req.body.rating : movie.rating,
             movie.synopsis = req.body.synopsis ? req.body.synopsis : movie.synopsis,
             movie.release_year = req.body.release_year ? req.body.release_year : movie.release_year,
-            movie.genre =  req.body.genre ? req.body.genre : movie.genre,
+            movie.genre = req.body.genre 
+            ? movie.genre.includes(req.body.genre)
+               ? movie.genre
+               : [...movie.genre, ...req.body.genre]
+            : movie.genre,
             movie.director = req.body.director ? req.body.director : movie.director,
             movie.box_office = req.body.box_office ? req.body.box_office : movie.box_office,
             movie.poster = req.body.poster ? req.body.poster : movie.poster
