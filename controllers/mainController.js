@@ -20,6 +20,14 @@ module.exports ={
       })
    },
 
+   findByGenre: (req,res) => {
+      Movie.find({genre:req.query.genre}).then(movies=>{
+         console.log(movies)
+         if(movies.length>0) return res.render('genreonly', {title:'Found Genre',genre:req.query.genre, movies})
+         return res.status(400).json({message: `No movies found`})
+      })
+   },
+
    addMovie: (req,res) => {
       if (!req.body.title 
             || !req.body.rating 
@@ -39,7 +47,7 @@ module.exports ={
          newMovie.rating = req.body.rating
          newMovie.synopsis = req.body.synopsis
          newMovie.release_year = req.body.release_year
-         newMovie.genre = req.body.genre.split(',')
+         newMovie.genre = req.body.genre.toLowerCase().split(' ').join('').split(',')
          newMovie.director = req.body.director
          newMovie.box_office = req.body.box_office
          newMovie.poster = req.body.poster
